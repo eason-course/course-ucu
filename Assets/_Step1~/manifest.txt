@@ -1,3 +1,0 @@
-Scripts
-Scenes/01_Move4Dir.unity
-Animations/Player.controller
