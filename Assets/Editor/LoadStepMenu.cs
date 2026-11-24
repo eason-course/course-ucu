@@ -9,6 +9,9 @@ public static class LoadStepMenu
     [MenuItem("Tools/教學/載入步驟/Step1")]
     static void Step1() => Load("Step1");
 
+    [MenuItem("Tools/教學/載入步驟/Step2")]
+    static void Step2() => Load("Step2");
+
     static void Load(string step)
     {
         string hidden = $"Assets/_{step}~";
