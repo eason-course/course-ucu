@@ -1,42 +1,54 @@
-# eason-course
+# 3D Character Action
 
-Unity 3D 角色動作教學專案：從角色移動開始，一步一步做到揮劍攻擊。
+2026/11/25 南華大學 - UCU 證照工作坊
 
-## 環境
+## 課程簡介
 
-- Unity **6000.0.68f1**(URP)
-- 輸入用舊版 Input Manager(`Input.GetAxis`)
-- 下載時要有 [Git LFS](https://git-lfs.com/)，模型和貼圖才會正確下載：
-  ```
-  git lfs install
-  git clone https://github.com/Kinsliner/eason-course.git
-  ```
+這是一個 Unity 教學專案，我們會從零開始做出一個第三人稱 3D 角色：先讓角色跑起來、攝影機跟著轉，再加上跳躍與站上箱子，最後讓角色拿劍揮砍木樁、打到血量歸零。課程用最基本的寫法(舊版 Input Manager、Animator Blend Tree)，適合剛接觸 Unity 的學員。
 
-## 步驟內容
+## 玩法與操作
 
-| 步驟 | 場景 | 內容 |
-|---|---|---|
-| Step0 | `Step0/Scenes/00_Move.unity` | 半成品：用 `transform.Translate` 移動、2D Blend Tree 動畫、攝影機跟隨 |
-| Step1 | `Step1/Scenes/01_Move4Dir.unity` | 改用 CharacterController：可以跳、可以站上箱子、掉落動作 |
-| Step2 | `Step2/Scenes/02_Attack.unity` | 左鍵兩段揮劍、木樁敵人、頭上血條、Animation Event 控制攻擊判定時間 |
+| 按鍵 | 動作 |
+|------|------|
+| W / A / S / D(方向鍵) | 移動角色 |
+| 滑鼠 | 轉動攝影機 |
+| 空白鍵 | 跳躍 |
+| 滑鼠左鍵 | 揮劍攻擊(連按可兩段連擊) |
 
-## 操作
+遊戲目標：控制角色走到木樁旁邊，揮劍把木樁的血量打到歸零。
 
-- **WASD / 方向鍵**：移動
-- **滑鼠**：轉動攝影機
-- **空白鍵**：跳躍(Step1 起)
-- **左鍵**：攻擊(Step2)
+## 學習重點
+
+### 1. 角色移動與動畫混合
+
+用 `Input.GetAxis` 讀取鍵盤輸入，搭配 `transform.Translate` 移動角色。在 Animator 建立 2D Blend Tree，依照前後左右的輸入，把待機和四個方向的跑步動畫平順地混合起來。
+
+### 2. 攝影機跟隨
+
+攝影機跟在角色後方，隨滑鼠左右、上下轉動，角色會面向攝影機的方向前進。
+
+### 3. 跳躍與站上箱子
+
+改用 CharacterController 移動，加入重力與跳躍，角色可以站上場景裡的箱子；離開地面時播放掉落動作，落地時接回移動。
+
+### 4. 揮劍攻擊與敵人血量
+
+按左鍵觸發 Animator Trigger，做出兩段連擊。劍身用 Trigger Collider 判定是否砍中，並透過 Animation Event 只在揮劍的那幾格開啟判定。木樁被砍中會扣血，頭上的血條同步減少，血量歸零就消失。
 
 ## 載入步驟
 
-Step1、Step2 的完成內容放在 `Assets/_Step1~`、`Assets/_Step2~`。資料夾名稱結尾是 `~`，所以 Unity 不會讀取它們。
+每個步驟的完成版都藏在專案裡，上課跟不上時可以直接載入來看：
 
-要看完成版時，在 Unity 選單點 **Tools → 教學 → 載入步驟 → StepN**，專案裡就會多出一個 `Assets/StepN` 資料夾。
+| 步驟 | 內容 | 位置 |
+|------|------|------|
+| Step0 | 角色移動 + 攝影機(半成品) | 直接在 `Assets/Step0` |
+| Step1 | 跳躍、站上箱子、掉落 | 選單 **Tools → 教學 → 載入步驟 → Step1** |
+| Step2 | 揮劍攻擊、木樁血條 | 選單 **Tools → 教學 → 載入步驟 → Step2** |
 
-- 想重新載入：先把 `Assets/StepN` 刪掉，再點一次選單。
-- Step1 和 Step2 不要同時載入：兩個步驟的檔案 GUID 相同，同時載入會互相衝突。看完一個就先刪掉，再載入另一個。
+載入後會出現 `Assets/StepN` 資料夾，場景在裡面的 `Scenes/`。Step1 和 Step2 請一次只載入一個，看完先刪掉再載另一個。
 
-## 素材
+## 開發環境
 
-- 角色、武器、木樁：Synty POLYGON 系列
-- 動作：Synty Animation 系列
+- Unity 6（6000.0.68f1，URP）
+- Synty POLYGON 角色與動作素材
+- 模型與貼圖用 Git LFS 存放，請用 `git clone` 下載(GitHub 的「Download ZIP」不會包含 LFS 檔案)
